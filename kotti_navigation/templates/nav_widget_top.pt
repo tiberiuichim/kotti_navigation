@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-static-top">
   <div class="navbar-inner">
     <div class="container">
-      <span class="brand">
+      <span class="navbar-brand">
         <a href="${request.application_url}/">${api.site_title}</a>
       </span>
       <div tal:replace="api.render_template('kotti:templates/view/search.pt')" />
