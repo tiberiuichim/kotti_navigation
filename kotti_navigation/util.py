@@ -69,25 +69,25 @@ def get_children(context, request, location):
     if show_hidden and user:
         if content_types_to_include:
             children = [c for c in context.children_with_permission(request)
-                        if c.__class__.__name__ not in content_types_to_exclude
-                        and c.__class__.__name__ in content_types_to_include]
+                        if c.type_info.name not in content_types_to_exclude
+                        and c.type_info.name in content_types_to_include]
         else:
             children = [c for c in context.children_with_permission(request)
-                        if c.__class__.__name__ not in
+                        if c.type_info.name not in
                         content_types_to_exclude]
     else:
         if content_types_to_include:
             # XXX: Should use typeinfo
             children = \
                 [c for c in context.children_with_permission(request)
-                 if c.__class__.__name__ in content_types_to_include
+                 if c.type_info.name in content_types_to_include
                  and c.in_navigation
-                 and c.__class__.__name__ not in content_types_to_exclude]
+                 and c.type_info.name not in content_types_to_exclude]
         else:
             children = \
                 [c for c in context.children_with_permission(request)
                  if c.in_navigation
-                 and c.__class__.__name__ not in content_types_to_exclude]
+                 and c.type_info.name not in content_types_to_exclude]
 
     return children
 
@@ -110,23 +110,23 @@ def get_lineage(context, request, location):
     if show_hidden and user:
         if content_types_to_include:
             items = [item for item in list(lineage(context))
-                     if item.__class__.__name__ not in content_types_to_exclude
-                     and item.__class__.__name__ in content_types_to_include]
+                     if item.__class__ not in content_types_to_exclude
+                     and item.__class__ in content_types_to_include]
         else:
             items = [item for item in list(lineage(context))
-                     if item.__class__.__name__ not in
+                     if item.__class__ not in
                      content_types_to_exclude]
     else:
         if content_types_to_include:
             items = [item for item in list(lineage(context))
-                     if item.__class__.__name__ in content_types_to_include
+                     if item.__class__ in content_types_to_include
                      and item.in_navigation
-                     and item.__class__.__name__ not in
+                     and item.__class__ not in
                      content_types_to_exclude]
         else:
             items = [item for item in list(lineage(context))
                      if item.in_navigation
-                     and item.__class__.__name__ not in
+                     and item.__class__ not in
                      content_types_to_exclude]
 
     return items
